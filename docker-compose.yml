@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+    backend:
+        build:
+          context: ./api
+        command: ["/bin/bash" ,"run.sh"]           
+        ports:
+          - "8000:8000"         
+    frontend:
+        build:
+          context: ./frontend
+        command: ["/bin/bash" ,"run.sh"]   
+        volumes:
+          - react_build:/react/build
+        ports:
+          - 3000:3000
+    nginx:
+        image: nginx:latest
+        ports:
+          - 80:8080
+        volumes:
+          - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+          - react_build:/var/www/react
+        depends_on:
+          - backend
+          - frontend    
+volumes:
+    react_build:

@@ -1,0 +1,10 @@
+__pycache__
+env
+*.db
+*.log
+.env.dev
+.env.prod
+.env.prod.db
+credentials.py
+static/
+migrations/
